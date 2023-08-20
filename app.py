@@ -27,29 +27,20 @@ def delete(id):
     db.session.commit()
     return redirect('/expenses')
     
-@app.route('/edit/<int:id>')
-def edit(id):
-    expense = Expense.query.filter_by(id=id).first()
-    return render_template('edit.html', expense=expense)
+@app.route('/editexpense/<int:id>', methods=['GET', 'POST'])
+def editexpense(id):
+    expense = Expense.query.get_or_404(id)
 
-@app.route('/editexpense', methods=['POST'])
-def editexpense():
-    id = request.form['id']
-    date = request.form['date']
-    expensename = request.form['expensename']
-    amount = request.form['amount']
-    category = request.form['category']
-    
-    expense = Expense.query.filter_by(id=id).first()
-    expense.date = date
-    expense.expensename = expensename
-    expense.amount = amount
-    expense.category = category
-    
-    db.session.commit()
-    return redirect('/expenses')
-    
-    
+    if request.method == 'POST':
+        expense.date = request.form['date']
+        expense.expensename = request.form['expensename']
+        expense.amount = request.form['amount']
+        expense.category = request.form['category']
+
+        db.session.commit()
+        return redirect('/expenses')
+
+    return render_template('edit.html', expense=expense)   
 
 @app.route('/addexpense', methods=['POST'])
 def addexpense():
