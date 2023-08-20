@@ -20,6 +20,37 @@ class Expense(db.Model):
 def add():
     return render_template("add.html")
 
+@app.route('/delete/<int:id>')
+def delete(id):
+    expense = Expense.query.filter_by(id=id).first()
+    db.session.delete(expense)
+    db.session.commit()
+    return redirect('/expenses')
+    
+@app.route('/edit/<int:id>')
+def edit(id):
+    expense = Expense.query.filter_by(id=id).first()
+    return render_template('edit.html', expense=expense)
+
+@app.route('/editexpense', methods=['POST'])
+def editexpense():
+    id = request.form['id']
+    date = request.form['date']
+    expensename = request.form['expensename']
+    amount = request.form['amount']
+    category = request.form['category']
+    
+    expense = Expense.query.filter_by(id=id).first()
+    expense.date = date
+    expense.expensename = expensename
+    expense.amount = amount
+    expense.category = category
+    
+    db.session.commit()
+    return redirect('/expenses')
+    
+    
+
 @app.route('/addexpense', methods=['POST'])
 def addexpense():
     date = request.form['date']
