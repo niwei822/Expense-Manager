@@ -58,17 +58,24 @@ def addexpense():
 @app.route('/expenses')
 def expenses():
     expenses = Expense.query.all()
-    return render_template('expenses.html', expenses=expenses)
+    total = 0
+    total_food = 0
+    total_entertainment = 0
+    total_clothes = 0
+    total_other = 0
+    for expense in expenses:
+        total += expense.amount
+        if expense.category == "food":
+            total_food += expense.amount
+        elif expense.category == "entertainment":
+            total_entertainment += expense.amount
+        elif expense.category == "clothes":
+            total_clothes += expense.amount
+        else:
+            total_other += expense.amount
+          
+    return render_template('expenses.html', expenses=expenses, total=total, total_food=total_food, total_entertainment=total_entertainment, total_clothes=total_clothes, total_other=total_other)
     
-    
-
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

@@ -11,10 +11,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-2">{{ expense.expensename }}</div>
-                        <div class="col-md-2">{{ expense.amount }}</div>
+                        <div class="col-md-2">${{ expense.amount }}</div>
                         <div class="col-md-2">{{ expense.date }}</div>
                         <div class="col-md-2">
-                            <span class="badge text-bg-info">{{ expense.category }}</span>
+                            <span class="badge text-bg-info" id="category">{{ expense.category }}</span>
                         </div>
                         <div class="col-md-2">
                             <a class="btn btn-outline-success" href="editexpense/{{expense.id}}" role="button">Edit</a>
@@ -28,6 +28,52 @@
         </div>
     </div>
     {% endfor %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="mt-5 mb-3">Expenses Breakdown</h3>
+            <div class="card shaow bb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Food</div>
+                        <div class="col-md-6">${{ total_food }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shaow bb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Entertainment</div>
+                        <div class="col-md-6">${{ total_entertainment }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shaow bb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Clothes</div>
+                        <div class="col-md-6">${{ total_clothes }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shaow bb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Other</div>
+                        <div class="col-md-6">${{ total_other }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shaow bb-2 bg-white rounded mt-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Total Amount</div>
+                        <div class="col-md-6">${{ total }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
